@@ -11,7 +11,7 @@ from .models.utils import preprocess_text, is_english_sentence, remove_emojis
 # from flask import render_template, request, redirect, url_for
 # from app import app
 # YouTube API setup
-API_KEY = 'AIzaSyCnFnJYsL5YtHxCbiMiqRiH-sjn2mHIw4M'  # Replace with your YouTube API key
+API_KEY = 'API_KEY'  # Replace with your YouTube API key
 youtube = build("youtube", "v3", developerKey=API_KEY)
 
 def get_youtube_comments(video_id):
