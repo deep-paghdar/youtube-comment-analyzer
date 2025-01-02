@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results</title>
+</head>
+<body>
+    <h1>Prediction Results</h1>
+    <img src="data:image/png;base64,{{ pie_chart }}" alt="Pie Chart">
+    <h3>Category Distribution:</h3>
+    <ul>
+        {% for category, count in predictions.items() %}
+            <li>{{ category }}: {{ count }} comments</li>
+        {% endfor %}
+    </ul>
+
+    <h1>Top 10 Comments</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Comment</th>
+                <th>Label</th>
+                <th>Probability</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comment, prob, label in top_comments %}
+            <tr>
+                <td>{{ comment }}</td>
+                <td>{{ label }}</td>
+                <td>{{ prob }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="/">Go Back</a>
+</body>
+</html>

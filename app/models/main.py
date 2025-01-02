@@ -5,6 +5,7 @@ from train_model import train_model
 from test_model import test_model
 from registry import log_model_to_mlflow
 import numpy as np
+import joblib
 
 # df = pd.concat([pd.read_csv("/home/deeppaghdar/Documents/kaggle/youtube comment analyzer/archive/Reddit_Data.csv"), 
 #                 pd.read_csv("/home/deeppaghdar/Documents/kaggle/youtube comment analyzer/archive/Twitter_Data.csv")], axis=0)
@@ -26,21 +27,24 @@ print(df['category'].value_counts())
 
 X_train, X_test, y_train, y_test = train_test_split(df['preprocess_text'], df['category'], test_size=0.2, random_state=42, stratify=df['category'])
 
-#Xgboost train, test and mlflow logging
-xgb_classifier = train_model("xgboost", X_train, y_train)
-accuracy = test_model(xgb_classifier, X_test, y_test)
-log_model_to_mlflow("xgboost", xgb_classifier, accuracy)
-print("Train, Test and logged xgboost complete.")
+# #Xgboost train, test and mlflow logging
+# xgb_classifier = train_model("xgboost", X_train, y_train)
+# accuracy = test_model(xgb_classifier, X_test, y_test)
+# log_model_to_mlflow("xgboost", xgb_classifier, accuracy)
+# print("Train, Test and logged xgboost complete.")
 
 
-#Random Forest train, test and mlflow logging
-rf_classifier = train_model("random_forest", X_train, y_train)
-accuracy = test_model(rf_classifier, X_test, y_test)
-log_model_to_mlflow("random_forest", rf_classifier, accuracy)
-print("Train, Test and logged randomforest complete.")
+# #Random Forest train, test and mlflow logging
+# rf_classifier = train_model("random_forest", X_train, y_train)
+# accuracy = test_model(rf_classifier, X_test, y_test)
+# log_model_to_mlflow("random_forest", rf_classifier, accuracy)
+# print("Train, Test and logged randomforest complete.")
 
 #lightgbm train, test and mlflow logging
 lgbm_classifier = train_model("lightgbm", X_train, y_train)
+# Save the model using joblib
+joblib.dump(lgbm_classifier, "model.pkl")
+print("Model saved as lightgbm_model.pkl")
 accuracy = test_model(lgbm_classifier, X_test, y_test)
 log_model_to_mlflow("lightgbm", lgbm_classifier, accuracy)
 print("Train, Test and logged lgbm classifier complete.")
